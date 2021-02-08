@@ -95,6 +95,11 @@ class PerActionResolver implements ReleasableResolver {
   Future<AstNode> astNodeFor(Element element, {bool resolve = false}) =>
       _delegate.astNodeFor(element, resolve: resolve);
 
+
+  @override
+  Future<ResolvedLibraryResult> getResolvedLibraryByElement(LibraryElement element) =>
+      _delegate.getResolvedLibraryByElement(element);
+
   @override
   Future<CompilationUnit> compilationUnitFor(AssetId assetId,
       {bool allowSyntaxErrors = false}) async {
@@ -170,6 +175,14 @@ class AnalyzerResolver implements ReleasableResolver {
           .getElementDeclaration(element)
           ?.node;
     }
+  }
+
+  @override
+  Future<ResolvedLibraryResult> getResolvedLibraryByElement(
+      LibraryElement element) async {
+    var session = _driver.currentSession;
+    var path = element.library.source.fullName;
+    return await session.getResolvedLibrary(path);
   }
 
   @override

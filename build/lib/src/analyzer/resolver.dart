@@ -37,6 +37,8 @@ abstract class Resolver {
   /// reason.
   Future<AstNode> astNodeFor(Element element, {bool resolve = false});
 
+  Future<ResolvedLibraryResult> getResolvedLibraryByElement(LibraryElement element);
+
   /// Returns a parsed AST structor representing the file defined in [assetId].
   ///
   /// * If the [assetId] has syntax errors, and [allowSyntaxErrors] is set to

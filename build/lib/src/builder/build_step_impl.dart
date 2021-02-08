@@ -5,6 +5,7 @@ import 'dart:async';
 import 'dart:convert';
 
 import 'package:analyzer/dart/ast/ast.dart';
+import 'package:analyzer/dart/analysis/results.dart';
 import 'package:analyzer/dart/element/element.dart';
 import 'package:async/async.dart';
 import 'package:build/src/builder/build_step.dart';
@@ -193,6 +194,11 @@ class _DelayedResolver implements Resolver {
   @override
   Future<AstNode> astNodeFor(Element element, {bool resolve = false}) async =>
       (await _delegate).astNodeFor(element, resolve: resolve);
+
+
+  @override
+  Future<ResolvedLibraryResult> getResolvedLibraryByElement(LibraryElement element) async =>
+      (await _delegate).getResolvedLibraryByElement(element);
 
   @override
   Future<CompilationUnit> compilationUnitFor(AssetId assetId,
